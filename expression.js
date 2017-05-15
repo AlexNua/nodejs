@@ -14,10 +14,6 @@ export default class ExpressionController {
         var entitiesNames = {};
         var result = [];
 
-        if(request.query.matched){
-            match.matched = request.query.matched == 'false' ? false : true;
-        }
-        
         match.status = ['new', 'processed'].indexOf(request.query.status) >= 0 ? request.query.status : 'new';
         db.expressions.find(match).sort({created_at: -1}).skip(offset).limit(limit)
         .then((resources) => {
@@ -55,7 +51,7 @@ export default class ExpressionController {
                     text: expression.text,
                     entities: entities,
                     matched: expression.matched,
-                    intent: intent                    
+                    intent: intent
                 }
                 result.push(item);
             }
